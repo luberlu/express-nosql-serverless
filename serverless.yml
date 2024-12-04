@@ -5,6 +5,16 @@ app: tests
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: express-nosql-serverless
 
+plugins:
+  - serverless-dynamodb
+  - serverless-offline
+
+custom:
+  serverless-dynamodb:
+    start:
+      port: 8002
+      docker: false
+
 stages:
   default:
     params:
