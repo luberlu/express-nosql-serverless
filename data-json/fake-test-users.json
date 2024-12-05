@@ -1,0 +1,26 @@
+[
+    {
+        "name": {
+            "S": "John Doe Jr."
+        },
+        "userId": {
+            "S": "12345"
+        }
+    },
+    {
+        "name": {
+            "S": "John Blanc"
+        },
+        "userId": {
+            "S": "67890"
+        }
+    },
+    {
+        "name": {
+            "S": "John White"
+        },
+        "userId": {
+            "S": "78901"
+        }
+    }
+]

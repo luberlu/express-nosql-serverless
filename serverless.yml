@@ -5,15 +5,27 @@ app: tests
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: express-nosql-serverless
 
+frameworkVersion: '4.2.3'
+
 plugins:
   - serverless-dynamodb
   - serverless-offline
 
 custom:
   serverless-dynamodb:
+    stages:
+      - dev
     start:
-      port: 8002
+      port: 8001
+      inMemory: true
       docker: false
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: "users-table-dev"
+            rawsources: [./data-json/fake-test-users.json]
 
 stages:
   default:

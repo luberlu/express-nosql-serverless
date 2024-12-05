@@ -11,8 +11,20 @@ const app = express();
 
 const USERS_TABLE = process.env.USERS_TABLE as string;
 
-const client = new DynamoDBClient()
-const docClient = DynamoDBDocumentClient.from(client);
+let clientConfig = {};
+
+if (process.env.IS_OFFLINE) {
+  clientConfig = {
+    region: "localhost",
+    endpoint: "http://0.0.0.0:8001",
+    credentials: {
+      accessKeyId: "MockAccessKeyId",
+      secretAccessKey: "MockSecretAccessKey",
+    },
+  };
+}
+
+const docClient = DynamoDBDocumentClient.from(new DynamoDBClient(clientConfig));
 
 app.use(express.json());
 
@@ -58,27 +70,27 @@ app.get("/users", async (req: Request, res: Response) => {
 });
 
 async function createUser(req: Request, res: Response) {
-    const { userId, name } = req.body;
+  const { userId, name } = req.body;
 
-    if (typeof userId !== "string") {
-      res.status(400).json({ error: '"userId" must be a string' });
-    } else if (typeof name !== "string") {
-      res.status(400).json({ error: '"name" must be a string' });
-    }
-  
-    const params = {
-      TableName: USERS_TABLE,
-      Item: { userId, name },
-    };
-  
-    try {
-      const command = new PutCommand(params);
-      await docClient.send(command);
-      res.json({ userId, name });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Could not create user" });
-    }
+  if (typeof userId !== "string") {
+    res.status(400).json({ error: '"userId" must be a string' });
+  } else if (typeof name !== "string") {
+    res.status(400).json({ error: '"name" must be a string' });
+  }
+
+  const params = {
+    TableName: USERS_TABLE,
+    Item: { userId, name },
+  };
+
+  try {
+    const command = new PutCommand(params);
+    await docClient.send(command);
+    res.json({ userId, name });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Could not create user" });
+  }
 }
 
 app.post("/users", createUser);
@@ -95,6 +107,6 @@ exports.handler = serverless(app);
 exports.helloWorld = async (event: any) => {
   return {
     statusCode: 200,
-    body: "Hello, world!",
+    body: "Hello, world !",
   };
 };
