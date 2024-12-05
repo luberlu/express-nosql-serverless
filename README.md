@@ -1,71 +1,71 @@
-# Express TypeScript API avec Serverless Framework et DynamoDB
+# Express TypeScript API with Serverless Framework and DynamoDB
 
-Ce projet démontre comment développer et déployer un service API Node.js utilisant Express et TypeScript, avec une base de données DynamoDB, le tout fonctionnant sur AWS Lambda via le Serverless Framework. Il inclut également la possibilité de développer localement avec `serverless-offline`.
+This project demonstrates how to develop and deploy a Node.js API service using Express and TypeScript, with a DynamoDB database, all running on AWS Lambda via the Serverless Framework. It also includes the ability to develop locally with `serverless-offline`.
 
-## Fonctionnalités
+## Features
 
-- **Express.js** pour la gestion des routes et des requêtes HTTP.
-- **TypeScript** pour un typage statique et une meilleure maintenabilité du code.
-- **DynamoDB** pour le stockage des données utilisateurs.
-- **Serverless Framework** pour déployer facilement sur AWS Lambda.
-- **Serverless Offline** pour le développement et le test local.
+- **Express.js** for handling routes and HTTP requests.
+- **TypeScript** for static typing and better code maintainability.
+- **DynamoDB** for user data storage.
+- **Serverless Framework** for easy deployment to AWS Lambda.
+- **Serverless Offline** for local development and testing.
 
-## Prérequis
+## Prerequisites
 
-- Node.js et npm installés sur votre machine.
-- Un compte AWS et des identifiants configurés pour le déploiement.
+- Node.js and npm installed on your machine.
+- An AWS account and configured credentials for deployment.
 
 ## Installation
 
-Clonez le dépôt et installez les dépendances :
+Clone the repository and install dependencies:
 
 ```bash
-git clone <url-du-repo>
-cd <nom-du-repo>
+git clone <repo-url>
+cd <repo-name>
 npm install
 ```
 
-## Développement local offline
+## Local Offline Development
 
-Pour développer localement, utilisez `serverless-offline` et `serverless-dynamodb` :
+To develop locally, use `serverless-offline` and `serverless-dynamodb`:
 
-1. Installez Serverless DynamoDB :
+1. Install Serverless DynamoDB:
 
    ```bash
    serverless dynamodb install
    ```
 
-2. Démarrez le serveur local :
+2. Start the local server:
 
    ```bash
    npm run offline
    ```
 
-Cela lancera :
-- Un serveur API local sur `http://localhost:3000`
-- Un émulateur DynamoDB local sur le port 8001
+This will start:
+- A local API server on `http://localhost:3000`
+- A local DynamoDB emulator on port 8001
 
-Vous pouvez maintenant tester vos endpoints localement :
+You can now test your endpoints locally:
 
 ```bash
-# Créer un utilisateur
+# Create a user
 curl --request POST 'http://localhost:3000/users' \
 --header 'Content-Type: application/json' \
 --data-raw '{"name": "John", "userId": "someUserId"}'
 
-# Récupérer un utilisateur
+# Get a user
 curl http://localhost:3000/users/someUserId
 ```
 
-## Déploiement
+## Deployment
 
-Pour déployer votre service sur AWS, exécutez :
+To deploy your service to AWS, run:
 
 ```bash
 serverless deploy
 ```
 
-Après le déploiement, vous verrez une sortie similaire à :
+After deployment, you'll see output similar to:
 
 ```
 Service deployed to stack express-nosql-serverless-dev
@@ -74,11 +74,11 @@ functions:
   api: express-nosql-serverless-dev-api
 ```
 
-## Utilisation
+## Usage
 
-### Créer un utilisateur
+### Create a User
 
-Pour créer un nouvel utilisateur, envoyez une requête POST à l'endpoint `/users` :
+To create a new user, send a POST request to the `/users` endpoint:
 
 ```bash
 curl --request POST 'https://xxxxxx.execute-api.us-east-1.amazonaws.com/users' \
@@ -86,23 +86,23 @@ curl --request POST 'https://xxxxxx.execute-api.us-east-1.amazonaws.com/users' \
 --data-raw '{"name": "John", "userId": "someUserId"}'
 ```
 
-### Récupérer un utilisateur
+### Get a User
 
-Pour récupérer un utilisateur par `userId`, envoyez une requête GET à l'endpoint `/users/:userId` :
+To retrieve a user by `userId`, send a GET request to the `/users/:userId` endpoint:
 
 ```bash
 curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/users/someUserId
 ```
 
-## Remarques
+## Notes
 
-- Assurez-vous que votre table DynamoDB est correctement configurée et que les permissions IAM sont en place pour permettre l'accès à DynamoDB.
-- Pour les déploiements en production, envisagez d'ajouter un authorizer pour sécuriser votre API.
+- Make sure your DynamoDB table is properly configured and IAM permissions are in place to allow DynamoDB access.
+- For production deployments, consider adding an authorizer to secure your API.
 
-## Contribution
+## Contributing
 
-Les contributions sont les bienvenues. Veuillez soumettre une pull request pour toute amélioration ou correction.
+Contributions are welcome. Please submit a pull request for any improvements or fixes.
 
-## Licence
+## License
 
-Ce projet est sous licence MIT.
+This project is licensed under the MIT License.
