@@ -15,7 +15,7 @@
     "serverless-offline": "^14.3.4"
   },
   "scripts": {
-    "offline": "serverless offline start",
+    "offline": "serverless offline start --reloadHandler",
     "dev": "serverless dev"
   }
 }
