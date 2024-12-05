@@ -3,7 +3,7 @@ org: luberlu
 # "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: tests
 # "service" is the name of this project. This will also be added to your AWS resource names.
-service: express-nosql-serverless
+service: serverless-express-typescript-dynamodb
 
 frameworkVersion: '4.2.3'
 
